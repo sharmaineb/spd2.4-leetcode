@@ -29,35 +29,41 @@ Explanation:
 The pivot index is 0.
 Left sum = 0 (no elements to the left of index 0)
 Right sum = nums[1] + nums[2] = 1 + -1 = 0
+ 
 
 Constraints:
 
 1 <= nums.length <= 104
 -1000 <= nums[i] <= 1000
- 
-Note: This question is the same as 1991: https://leetcode.com/problems/find-the-middle-index-in-array/
 """
+
+# calculate the total sum of all the elements in array
+# initialize a variable left_sum to 0 to track the sum of elements to the left of the current index
+# iterate through each element in the array
+# for each index i check if left_sum is equal to the total sum minus the left_sum and element at index i
+# if it is, return i as the pivot index
+# otherwise, add the current element to left_sum
+# if no pivot index is found during iteration, return -1 to indicate that no pivot index exists
 
 class Solution:
     def pivotIndex(self, nums):
-        # calculate the total sum of all elements
+        # calculate the total sum of all the elements in array
         total_sum = sum(nums)
-        # initialize the left sum
+        # initialize a variable left_sum to 0 to track the sum of elements to the left of the current index
         left_sum = 0
-        
-        # iterate through the array
-        for i, num in enumerate(nums):
-            # check if the left sum is equal to the right sum
-            if left_sum == total_sum - left_sum - num:
-                # return the pivot index
+        # iterate through each element in the array
+        for i in range(len(nums)):
+        # for each index i check if left_sum is equal to the total sum minus the left_sum and element at index i
+            if left_sum == total_sum - left_sum - nums[i]:
+                # if it is, return i as the pivot index
                 return i
-            # update the left sum
-            left_sum += num
-        # return -1 if no pivot index is found
+            # otherwise, add the current element to left_sum
+            left_sum += nums[i]
+        # if no pivot index is found, return -1
         return -1
 
-# test
-solution = Solution()
-print(solution.pivotIndex([1, 7, 3, 6, 5, 6]))
-print(solution.pivotIndex([1, 2, 3]))
-print(solution.pivotIndex([2, 1, -1]))
+sol = Solution()
+
+nums1 = [1,7,3,6,5,6]
+
+print(sol.pivotIndex(nums1))
