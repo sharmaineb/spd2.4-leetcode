@@ -11,31 +11,40 @@ Example 2:
 
 Input: flowerbed = [1,0,0,0,1], n = 2
 Output: false
- 
 
-Constraints:
-
-1 <= flowerbed.length <= 2 * 104
-flowerbed[i] is 0 or 1.
-There are no two adjacent flowers in flowerbed.
-0 <= n <= flowerbed.length
 """
+
+# iterate through the flowerbed array and check each plot to see if we can plant a flower
+        # check each empty plot and its neighboring plot
+        # keep track of the count of planted flowers and return True if
+        # count is greater than or equal to the required number of new flowers n
+        # if we can't plant enough new flowers without violating the no adjacent rule, return False
 
 class Solution:
     def canPlaceFlowers(self, flowerbed, n):
+        flowerbed = [0] + flowerbed + [0]
         count = 0
-        i = 0
-        while i < len(flowerbed):
-            # check if the current plot is empty and its neighbors are also empty
-            if flowerbed[i] == 0 and (i == 0 or flowerbed[i - 1] == 0) and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0):
-                # plant a flower
+        i = 1
+
+        while i < len(flowerbed) - 1:
+            # checks if the current plot and its neighbors are all empty
+            if flowerbed[i -1] == flowerbed[i] == flowerbed[i + 1] == 0:
+                # plant a flower at the current plot
                 flowerbed[i] = 1
+                # increment the count of planted flowers
                 count += 1
-            i += 1
-        
+                # skip the next plot since it's adjacent to the current one
+                i +=1 
+            i +=1
+
         return count >= n
 
-# test
-solution = Solution()
-print(solution.canPlaceFlowers([1,0,0,0,1], 1))
-print(solution.canPlaceFlowers([1,0,0,0,1], 2))
+sol = Solution()
+flowerbed1 = [1,0,0,0,1]
+n1 = 1
+
+flowerbed2 = [1,0,0,0,1]
+n2 = 2
+
+print(sol.canPlaceFlowers(flowerbed1, n1))
+print(sol.canPlaceFlowers(flowerbed2, n2))
